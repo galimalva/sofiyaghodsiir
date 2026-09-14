@@ -1,5 +1,5 @@
 ---
-// وب‌سایت اختصاصی محدثه قدسی - منوی شناور آثار
+// وب‌سایت اختصاصی محدثه قدسی - حذف آهنگ پس‌زمینه
 ---
 
 <!doctype html>
@@ -218,8 +218,7 @@
       </div>
     </div>
 
-    <!-- فایل‌های صوتی -->
-    <audio id="bg-music" src="/music.mp3" loop></audio>
+    <!-- فایل صوتی تایپ (آهنگ پس‌زمینه حذف شد) -->
     <audio id="typing-sound" src="/typing.mp3" preload="auto"></audio>
 
     <!-- هدر -->
@@ -416,7 +415,6 @@
       document.getElementById("shahnamehText").innerHTML = poems[Math.floor(Math.random() * poems.length)];
 
       const intro = document.getElementById("introOverlay");
-      const music = document.getElementById("bg-music");
       const enterBtn = document.getElementById("enterBtn");
 
       // افکت تایپ
@@ -465,7 +463,7 @@
 
       enterBtn.addEventListener("click", () => {
         intro.classList.add("hidden");
-        music.play().catch(e => {});
+        // موسیقی پس‌زمینه حذف شد
         setTimeout(startTyping, 1000);
       });
 
