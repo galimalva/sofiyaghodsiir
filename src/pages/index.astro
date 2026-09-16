@@ -1,5 +1,5 @@
 ---
-// وب‌سایت اختصاصی محدثه قدسی - رفع مشکل صدای تایپ
+// وب‌سایت اختصاصی محدثه قدسی - گالری سه‌بعدی
 ---
 
 <!doctype html>
@@ -131,11 +131,33 @@
       .excerpt-signature:hover { color: var(--emerald-glow); }
 
       /* گالری و لایت‌باکس */
-      .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-      .gallery-item { aspect-ratio: 1; background: var(--navy-card); border: 1px solid rgba(188, 154, 90, 0.1); cursor: pointer; transition: 0.3s; overflow: hidden; position: relative; }
+      .gallery-controls { text-align: center; margin-bottom: 3rem; }
+      .gallery-btn { padding: 0.5rem 1.5rem; background: transparent; border: 1px solid var(--navy-card); color: var(--text-muted); font-family: 'Vazirmatn'; font-size: 0.9rem; cursor: pointer; transition: 0.3s; margin: 0 0.5rem; border-radius: 20px; }
+      .gallery-btn.active { border-color: var(--gold-dusty); color: var(--gold-dusty); background: rgba(188, 154, 90, 0.1); }
+
+      .gallery-stage { position: relative; transition: all 0.5s ease; }
+      
+      /* حالت شبکه‌ای */
+      .gallery-stage.grid-mode { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+      
+      /* حالت سه‌بعدی */
+      .gallery-stage.d-mode { display: block; height: 450px; perspective: 1000px; transform-style: preserve-3d; animation: spin3d 20s infinite linear; }
+      .gallery-stage.d-mode:hover { animation-play-state: paused; }
+      @keyframes spin3d { from { transform: rotateY(0deg); } to { transform: rotateY(-360deg); } }
+
+      .gallery-item { background: var(--navy-card); border: 1px solid rgba(188, 154, 90, 0.1); cursor: pointer; transition: 0.3s; overflow: hidden; position: relative; }
       .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
       .gallery-item:hover { border-color: var(--burgundy-glow); box-shadow: 0 0 15px rgba(90, 20, 34, 0.3); }
-      .gallery-item:hover img { transform: scale(1.1); }
+      
+      .grid-mode .gallery-item { aspect-ratio: 1; }
+      .grid-mode .gallery-item:hover img { transform: scale(1.1); }
+
+      .d-mode .gallery-item { position: absolute; width: 250px; height: 350px; top: 50%; left: 50%; margin: -175px 0 0 -125px; }
+      .d-mode .gallery-item:nth-child(1) { transform: rotateY(0deg) translateZ(400px); }
+      .d-mode .gallery-item:nth-child(2) { transform: rotateY(72deg) translateZ(400px); }
+      .d-mode .gallery-item:nth-child(3) { transform: rotateY(144deg) translateZ(400px); }
+      .d-mode .gallery-item:nth-child(4) { transform: rotateY(216deg) translateZ(400px); }
+      .d-mode .gallery-item:nth-child(5) { transform: rotateY(288deg) translateZ(400px); }
       
       .lightbox-overlay {
         position: fixed; z-index: 2000; inset: 0; background: rgba(5, 14, 26, 0.95); backdrop-filter: blur(10px);
@@ -193,7 +215,7 @@
         .excerpts-grid { grid-template-columns: 1fr; }
         .reviews-grid { grid-template-columns: 1fr; }
         .about-box { flex-direction: column; }
-        .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        .gallery-stage.grid-mode { grid-template-columns: repeat(2, 1fr); }
         .works-list { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; border: none; padding-top: 1rem; }
       }
     </style>
@@ -327,22 +349,31 @@
       </div>
     </section>
 
-    <!-- گالری مینیاتور -->
+    <!-- گالری مینیاتور (دو حالته) -->
     <section id="gallery" class="section">
       <h2 class="section-title calligraphic reveal">گالری مینیاتور</h2>
       <div class="section-line reveal"></div>
-      <div class="gallery-grid">
-        <div class="gallery-item reveal" data-large="https://placehold.co/800x1000/0F2340/BC9A5A?text=Painting+1">
-          <img src="https://placehold.co/200x200/0F2340/BC9A5A?text=1" alt="نقاشی ۱">
+      
+      <div class="gallery-controls reveal">
+        <button id="gridBtn" class="gallery-btn active">نمایش شبکه‌ای</button>
+        <button id="dBtn" class="gallery-btn">نمایشگاه سه‌بعدی</button>
+      </div>
+
+      <div class="gallery-stage grid-mode" id="galleryStage">
+        <div class="gallery-item" data-large="/painting1.jpg">
+          <img src="/painting1.jpg" alt="نقاشی ۱">
         </div>
-        <div class="gallery-item reveal" data-large="https://placehold.co/800x1000/5A1422/E6DFD0?text=Painting+2">
-          <img src="https://placehold.co/200x200/5A1422/E6DFD0?text=2" alt="نقاشی ۲">
+        <div class="gallery-item" data-large="/painting2.jpg">
+          <img src="/painting2.jpg" alt="نقاشی ۲">
         </div>
-        <div class="gallery-item reveal" data-large="https://placehold.co/800x1000/0E5C45/E6DFD0?text=Painting+3">
-          <img src="https://placehold.co/200x200/0E5C45/E6DFD0?text=3" alt="نقاشی ۳">
+        <div class="gallery-item" data-large="/painting3.jpg">
+          <img src="/painting3.jpg" alt="نقاشی ۳">
         </div>
-        <div class="gallery-item reveal" data-large="https://placehold.co/800x1000/050E1A/BC9A5A?text=Painting+4">
-          <img src="https://placehold.co/200x200/050E1A/BC9A5A?text=4" alt="نقاشی ۴">
+        <div class="gallery-item" data-large="/painting4.jpg">
+          <img src="/painting4.jpg" alt="نقاشی ۴">
+        </div>
+        <div class="gallery-item" data-large="/painting5.jpg">
+          <img src="/painting5.jpg" alt="نقاشی ۵">
         </div>
       </div>
     </section>
@@ -464,7 +495,7 @@
       enterBtn.addEventListener("click", () => {
         intro.classList.add("hidden");
         
-        // رفع محدودیت مرورگر برای پخش صدا (Audio Unlock)
+        // رفع محدودیت مرورگر برای پخش صدا
         if (typingSound) {
           typingSound.muted = true;
           typingSound.play().then(() => {
@@ -523,6 +554,25 @@
         if (e.target !== lightboxImg) {
           lightbox.classList.remove('open');
         }
+      });
+
+      // تغییر حالت گالری (شبکه‌ای / سه‌بعدی)
+      const gridBtn = document.getElementById('gridBtn');
+      const dBtn = document.getElementById('dBtn');
+      const galleryStage = document.getElementById('galleryStage');
+
+      gridBtn.addEventListener('click', () => {
+        galleryStage.classList.remove('d-mode');
+        galleryStage.classList.add('grid-mode');
+        gridBtn.classList.add('active');
+        dBtn.classList.remove('active');
+      });
+
+      dBtn.addEventListener('click', () => {
+        galleryStage.classList.remove('grid-mode');
+        galleryStage.classList.add('d-mode');
+        dBtn.classList.add('active');
+        gridBtn.classList.remove('active');
       });
 
       // پیام نمایش آثار (فعلاً)
