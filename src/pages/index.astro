@@ -1,5 +1,5 @@
 ---
-// وب‌سایت اختصاصی محدثه قدسی - حذف آهنگ پس‌زمینه
+// وب‌سایت اختصاصی محدثه قدسی - رفع مشکل صدای تایپ
 ---
 
 <!doctype html>
@@ -218,7 +218,7 @@
       </div>
     </div>
 
-    <!-- فایل صوتی تایپ (آهنگ پس‌زمینه حذف شد) -->
+    <!-- فایل صوتی تایپ -->
     <audio id="typing-sound" src="/typing.mp3" preload="auto"></audio>
 
     <!-- هدر -->
@@ -463,7 +463,16 @@
 
       enterBtn.addEventListener("click", () => {
         intro.classList.add("hidden");
-        // موسیقی پس‌زمینه حذف شد
+        
+        // رفع محدودیت مرورگر برای پخش صدا (Audio Unlock)
+        if (typingSound) {
+          typingSound.muted = true;
+          typingSound.play().then(() => {
+            typingSound.pause();
+            typingSound.muted = false;
+          }).catch(e => {});
+        }
+
         setTimeout(startTyping, 1000);
       });
 
